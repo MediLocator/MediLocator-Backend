@@ -10,7 +10,7 @@ from sqlalchemy import create_engine, text
 
 # 병원 정보 zip 파일 다운로드
 options = webdriver.ChromeOptions()
-download_dir = "/Users/hangyeol/MediLocator-Crawler/hospital"
+download_dir = "/app/hospital"
 os.makedirs(download_dir, exist_ok=True)
 
 prefs = {
