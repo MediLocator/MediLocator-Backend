@@ -24,7 +24,7 @@ public class HospitalApiController {
         this.hospitalService = hospitalService;
     }
 
-    @PostMapping("/nearby-hospital")
+    @PostMapping("/nearby")
     public ResponseEntity<List<Hospital>> getNearbyHospitals(@RequestBody Double lat, Double lng) {
 
         List<Hospital> nearByHospitals = hospitalService.getNearByHospitals(lat, lng);
