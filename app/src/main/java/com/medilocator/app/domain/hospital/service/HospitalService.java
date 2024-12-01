@@ -37,4 +37,14 @@ public class HospitalService {
 
         return result;
     }
+
+    // 병원 정보 상세 조회
+    public Hospital getHospitalById(Long id) {
+        List<Hospital> hospitalList = hospitalMemoryRepository.getHospitalList();
+
+        return hospitalList.stream()
+                .filter(hospital -> hospital.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("병원을 찾을 수 없습니다. ID: " + id));
+    }
 }
