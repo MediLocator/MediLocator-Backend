@@ -10,7 +10,7 @@ from sqlalchemy import create_engine, text
 
 # 병원 정보 zip 파일 다운로드
 options = webdriver.ChromeOptions()
-download_dir = "/app/hospital"
+download_dir = "/Users/hangyeol/MediLocator-Backend/app/src/main/python/downloads"
 os.makedirs(download_dir, exist_ok=True)
 
 prefs = {
@@ -19,6 +19,11 @@ prefs = {
     "safebrowsing.enabled": True,
 }
 options.add_experimental_option("prefs", prefs)
+
+options.add_argument("--headless")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--disable-gpu")
 
 driver = webdriver.Chrome(options=options)
 
