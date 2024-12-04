@@ -29,12 +29,10 @@ public class HospitalService {
             Double lat2 = hospital.getXCoordinate();
             Double lng2 = hospital.getYCoordinate();
 
-            if (Calculate.calculateDistance(lat1, lng1, lat2, lng2) <= 3000) {
+            if (lat2 != null && lng2 != null && Calculate.calculateDistance(lat1, lng1, lat2, lng2) <= 300) {
                 result.add(hospital);
             }
-
         }
-
         return result;
     }
 
