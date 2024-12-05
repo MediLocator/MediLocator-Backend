@@ -26,8 +26,8 @@ public class HospitalService {
 
         for (Hospital hospital : hospitalList) {
 
-            Double lat2 = hospital.getXCoordinate();
-            Double lng2 = hospital.getYCoordinate();
+            Double lat2 = hospital.getYCoordinate();
+            Double lng2 = hospital.getXCoordinate();
 
             if (lat2 != null && lng2 != null && Calculate.calculateDistance(lat1, lng1, lat2, lng2) <= 300) {
                 result.add(hospital);
