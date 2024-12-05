@@ -27,7 +27,7 @@ public class HospitalApiController {
     }
 
     @Operation(summary = "주변 병원 조회", description = "현재 위치를 기반으로 주변 병원을 조회합니다.")
-    @PostMapping("/nearby")
+    @GetMapping("/nearby")
     public ResponseEntity<List<Hospital>> getNearbyHospitals(@RequestParam Double lat,@RequestParam Double lng) {
 
         List<Hospital> nearByHospitals = hospitalService.getNearByHospitals(lat, lng);

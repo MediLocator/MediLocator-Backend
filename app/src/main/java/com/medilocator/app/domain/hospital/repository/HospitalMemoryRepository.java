@@ -4,6 +4,7 @@ import com.medilocator.app.domain.hospital.domain.Hospital;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
+import jakarta.annotation.PostConstruct;
 
 import java.util.List;
 
@@ -17,6 +18,12 @@ public class HospitalMemoryRepository {
     @Autowired
     public HospitalMemoryRepository(HospitalRepository hospitalRepository) {
         this.hospitalRepository = hospitalRepository;
+    }
+
+    @PostConstruct
+    public void init() {
+        //System.out.println("메모리 DB 초기화");
+        updateHospitalList();
     }
 
     @Scheduled(fixedRate = 600000)
