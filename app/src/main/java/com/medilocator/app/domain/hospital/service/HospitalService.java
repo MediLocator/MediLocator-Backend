@@ -45,4 +45,18 @@ public class HospitalService {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("병원을 찾을 수 없습니다. ID: " + id));
     }
+
+    public List<Hospital> searchHospitalsByKeyword(String keyword) {
+        List<Hospital> hospitalList = hospitalMemoryRepository.getHospitalList();
+
+        List<Hospital> result = new ArrayList<>();
+
+        for (Hospital hospital : hospitalList) {
+            if (hospital.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                result.add(hospital);
+            }
+        }
+
+        return result;
+    }
 }

@@ -41,4 +41,10 @@ public class HospitalApiController {
         Hospital hospital = hospitalService.getHospitalById(id);
         return ResponseEntity.ok(hospital);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Hospital>> searchHospital(@RequestParam String keyword) {
+        List<Hospital> searchResult = hospitalService.searchHospitalsByKeyword(keyword);
+        return ResponseEntity.ok(searchResult);
+    }
 }
