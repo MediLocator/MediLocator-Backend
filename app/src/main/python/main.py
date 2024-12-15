@@ -1,4 +1,5 @@
 import os
+import random
 import time
 import glob
 import zipfile
@@ -108,14 +109,17 @@ for xlsx_file in xlsx_files:
         data[col] = data[col].astype(object)
         data[col] = data[col].where(pd.notnull(data[col]), None)
 
+    # 필요한 데이터 필터링
     filtered_data = data[["name", "category", "address", "phoneNumber", "total_doctors", "x_coordinate", "y_coordinate"]]
 
     with engine.connect() as conn:
         with conn.begin():
             for _, row in filtered_data.iterrows():
+                available_er_beds = random.randint(0, 10)
+
                 query = text("""
-                    INSERT INTO hospital (name, category, address, phone_number, total_doctors, x_coordinate, y_coordinate)
-                    VALUES (:name, :category, :address, :phoneNumber, :totalDoctors, :xCoordinate, :yCoordinate)
+                    INSERT INTO hospital (name, category, address, phone_number, total_doctors, x_coordinate, y_coordinate, available_er_beds)
+                    VALUES (:name, :category, :address, :phoneNumber, :totalDoctors, :xCoordinate, :yCoordinate, :availableERbeds)
                 """)
                 params = {
                     "name": row["name"],
@@ -125,6 +129,7 @@ for xlsx_file in xlsx_files:
                     "totalDoctors": row["total_doctors"],
                     "xCoordinate": row["x_coordinate"],
                     "yCoordinate": row["y_coordinate"],
+                    "availableERbeds": available_er_beds,
                 }
                 for key, value in params.items():
                     if isinstance(value, float) and np.isnan(value):
