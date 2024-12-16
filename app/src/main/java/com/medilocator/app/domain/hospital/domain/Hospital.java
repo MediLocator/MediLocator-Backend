@@ -30,6 +30,9 @@ public class Hospital {
     private Integer totalDoctors;
 
     @Column
+    private Integer availableERbeds;
+
+    @Column
     private Double xCoordinate;
 
     @Column
