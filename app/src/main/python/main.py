@@ -69,8 +69,15 @@ for zip_file_path in zip_files:
 
 print("모든 압축 해제 작업이 완료되었습니다.")
 
-# xlsx 파일 데이터베이스에 저장
+allowed_prefixes = {"1.", "2.", "3."}
 
+for root, dirs, files in os.walk(extract_dir):
+    for file in files:
+        if not any(file.startswith(prefix) for prefix in allowed_prefixes):
+            file_path = os.path.join(root, file)
+            os.remove(file_path)
+
+# xlsx 파일 데이터베이스에 저장
 DATABASE_URL = "mysql+pymysql://user:password@localhost:3306/medilocator"
 engine = create_engine(DATABASE_URL)
 
@@ -118,8 +125,8 @@ for xlsx_file in xlsx_files:
                 available_er_beds = random.randint(0, 10)
 
                 query = text("""
-                    INSERT INTO hospital (name, category, address, phone_number, total_doctors, x_coordinate, y_coordinate, available_er_beds)
-                    VALUES (:name, :category, :address, :phoneNumber, :totalDoctors, :xCoordinate, :yCoordinate, :availableERbeds)
+                    INSERT INTO hospital (name, category, address, phone_number, total_doctors, x_coordinate, y_coordinate, availableerbeds)
+                    VALUES (:name, :category, :address, :phoneNumber, :totalDoctors, :xCoordinate, :yCoordinate, :availableerbeds)
                 """)
                 params = {
                     "name": row["name"],
@@ -129,7 +136,7 @@ for xlsx_file in xlsx_files:
                     "totalDoctors": row["total_doctors"],
                     "xCoordinate": row["x_coordinate"],
                     "yCoordinate": row["y_coordinate"],
-                    "availableERbeds": available_er_beds,
+                    "availableerbeds": available_er_beds,
                 }
                 for key, value in params.items():
                     if isinstance(value, float) and np.isnan(value):
